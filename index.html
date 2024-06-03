@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>שטויות צבעוניות</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to left, #ff00ff, #00ffff, #ffff00, #ff00ff);
+            color: #4a4a4a;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #ff6b6b;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        h1 {
+            margin: 0;
+        }
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #4ecdc4;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #f8f8f8;
+            border-right: 5px solid #ffff00;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        footer {
+            background: #ff6b6b;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        button {
+            display: block;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            background-color: #4ecdc4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45b8ac;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ברוכים הבאים לארץ השטויות הצבעוניות!</h1>
+    </header>
+    <main>
+        <section>
+            <h2>שטויות אקראיות</h2>
+            <ul id="nonsenseList">
+            </ul>
+            <button id="refreshButton">רענן שטויות</button>
+        </section>
+    </main>
+    <footer>
+        &copy; 2023 שטויות צבעוניות. כל הזכויות שמורות.
+    </footer>
+
+    <script>
+        function getRandomNonsense() {
+            fetch('ttt.txt')
+                .then(response => response.text())
+                .then(data => {
+                    const nonsenseArray = data.split('\n');
+                    const randomIndex = Math.floor(Math.random() * nonsenseArray.length);
+                    const nonsenseList = document.getElementById('nonsenseList');
+                    nonsenseList.innerHTML = '';
+                    for (let i = 0; i < 5; i++) {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = nonsenseArray[(randomIndex + i) % nonsenseArray.length];
+                        nonsenseList.appendChild(listItem);
+                    }
+                });
+        }
+
+        getRandomNonsense();
+
+        const refreshButton = document.getElementById('refreshButton');
+        refreshButton.addEventListener('click', getRandomNonsense);
+    </script>
+</body>
+</html>
